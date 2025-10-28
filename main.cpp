@@ -28,7 +28,7 @@ int main(int argc, char** argv)
         std::cout << STRIDE_USAGE_MESSAGE;
         return 0;
     }
-    
+    //轉換成 std::string 讓他可以直接與"phase"比較
     std::string command(argv[1]);
     
     if(command=="phase")

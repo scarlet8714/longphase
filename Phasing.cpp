@@ -111,8 +111,11 @@ void PhasingOptions(int argc, char** argv)
     optind=1;    //reset getopt
     
     bool die = false;
+    // getopt_long 收到沒有 "-" or "--" 時回傳 "-1"
     for (char c; (c = getopt_long(argc, argv, shortopts, longopts, NULL)) != -1;)
     {
+        //獲取參數，沒有的話設為空字串
+        //建立一個輸入流，用於下面的switch case
         std::istringstream arg(optarg != NULL ? optarg : "");
         switch (c)
         {
@@ -160,17 +163,17 @@ void PhasingOptions(int argc, char** argv)
         std::cerr << SUBPROGRAM ": missing arguments\n";
         die = true;
     }
-    
+    //沒有指定是 ont 或是 pacbio 就退出
     if( opt::isONT == false && opt::isPB == false ){
         std::cerr << SUBPROGRAM ": missing arguments. --ont or --pb\n";
         die = true;
     }
-    
+    //兩個都指定也退出
     if( opt::isONT == true && opt::isPB == true ){
         std::cerr << SUBPROGRAM ": conflict arguments. --ont or --pb\n";
         die = true;
     }
-
+    //沒成功開啟檔案退出
     if( opt::snpFile != "")
     {
         std::ifstream openFile( opt::snpFile.c_str() );

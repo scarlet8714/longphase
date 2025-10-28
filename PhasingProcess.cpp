@@ -44,6 +44,7 @@ PhasingProcess::PhasingProcess(PhasingParameters params)
     std::time_t begin = time(NULL);
     std::cerr<< "parsing VCF ... ";
     SnpParser snpFile(params);
+    //計算執行時間
     std::cerr<< difftime(time(NULL), begin) << "s\n";
 
     // load SV vcf file
